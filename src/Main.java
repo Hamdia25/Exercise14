@@ -1,10 +1,21 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+
 public class Main {
-    public static void main(String[] args) {
-    Todo todo = new Todo("Walk the dog", false, 0, 3, "dog");
-    Todo todo1 = new Todo("Pay the bills", false, 1, 1, "bills");
-        System.out.println();
+    public static void main(String[] args) throws IOException {
+        Todo todo1 = new Todo("Walk the dog", false, 0, 3, "dog");
+        Todo todo2 = new Todo("Pay the bills", false, 1, 1, "bills");
+
+        ArrayList<Todo> todoList = new ArrayList<>();
+        todoList.add(todo1);
+        todoList.add(todo2);
+        System.out.println(todoList);
+
+        ObjectMapper map = new ObjectMapper();
+        map.writeValue(new File("data.json"),todoList);
     }
 }
 class Todo{
@@ -57,19 +68,17 @@ class Todo{
     public String getTitle() {
         return title;
     }
-
     public void setTitle(String title) {
         this.title = title;
     }
-
     @Override
     public String toString() {
         return "Todo{" +
-                "body='" + body + '\'' +
-                ", done=" + done +
-                ", id=" + id +
-                ", priority=" + priority +
-                ", title='" + title + '\'' +
-                '}';
+                        "body='" + body + '\'' +
+                        ", done=" + done +
+                        ", id=" + id +
+                        ", priority=" + priority +
+                        ", title='" + title + '\'' +
+                        '}';
     }
 }
